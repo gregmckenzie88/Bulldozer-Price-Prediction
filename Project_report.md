@@ -45,3 +45,44 @@ Upon further investigation, ~5% of the entries were outliers. At this stage, I e
 - Keep the outliers, and elect a decision-tree model
 
 Since decision trees are generally robust to outliers, and since the outliers appeared to be plausible, I decided to keep these data points and proceed with a tree-based algorithm.
+
+## Preprocessing and training
+
+[Notebook linked here](https://github.com/gregmckenzie88/Capstone-2/blob/main/notebooks/preprocessing_and_training.ipynb)
+
+Following the decision made during EDA to keep outliers and opt for a decision-tree-based algorithm, I elected the [RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) from scikit-learn for the initial model, with hyper parameters tuned via [RandomSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html).
+
+The second model was, again, a RandomForestRegressor, this time with hyperparameters tuned via [Bayesian Optimization](https://github.com/bayesian-optimization/BayesianOptimization).
+
+The third was generated via [TPOT pipeline optimizer](http://epistasislab.github.io/tpot/), which returned an [XGBRegressor](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBRegressor) from exboost.
+
+The results are as follows:
+
+### RandomSearchCV
+
+| Metric | Training            | Test               |
+| ------ | ------------------- | ------------------ |
+| MAE    | 2672.3028355081906  | 4481.802841827238  |
+| MSE    | 18542561.463251058  | 49735635.77544791  |
+| RMLSE  | 0.12762288835433264 | 0.2056094552470327 |
+| R2     | 0.9665610075121479  | 0.9096895332049417 |
+
+### Bayesian Optimization
+
+| Metric | Training            | Test                |
+| ------ | ------------------- | ------------------- |
+| MAE    | 1639.5948350684127  | 4364.200469238181   |
+| MSE    | 6730759.531112538   | 48115859.182510115  |
+| RMLSE  | 0.08136847992294637 | 0.20314577004595255 |
+| R2     | 0.9878619888711454  | 0.9126307398052228  |
+
+### XGBRegressor
+
+| Metric | Training            | Test               |
+| ------ | ------------------- | ------------------ |
+| MAE    | 4411.909914273493   | 4727.795474953852  |
+| MSE    | 45124750.30912358   | 53141288.268833235 |
+| RMLSE  | 0.20274550137074715 | 0.2167150492605207 |
+| R2     | 0.9186236384011195  | 0.9035055152141389 |
+
+The winner was RandomForestRegressor model, with hyperparameters tuned via Bayesian Optimization, which returned the most competitive scoring metrics -- not just on our chosen metric, Mean Absoulute Error
