@@ -58,7 +58,7 @@ The third was generated via [TPOT pipeline optimizer](http://epistasislab.github
 
 The results are as follows:
 
-### RandomSearchCV
+### RandomForestRegressor via RandomSearchCV
 
 | Metric | Training            | Test               |
 | ------ | ------------------- | ------------------ |
@@ -67,7 +67,7 @@ The results are as follows:
 | RMLSE  | 0.12762288835433264 | 0.2056094552470327 |
 | R2     | 0.9665610075121479  | 0.9096895332049417 |
 
-### Bayesian Optimization
+### RandomForestRegressor via Bayesian Optimization
 
 | Metric | Training            | Test                |
 | ------ | ------------------- | ------------------- |
@@ -86,3 +86,19 @@ The results are as follows:
 | R2     | 0.9186236384011195  | 0.9035055152141389 |
 
 The winner was RandomForestRegressor model, with hyperparameters tuned via Bayesian Optimization, which returned the most competitive scoring metrics -- not just on our chosen metric, Mean Absoulute Error
+
+## Predictions
+
+As my client was in search of a medium-sized bulldozer, made in the year 1997, in the state of Massachusetts, we were able to predict against these parameters and return a Blue Book sale price prediction of `$59,996.80`
+
+## Future improvements
+
+- As my training set only includes entries up to 2012, it would be nice to refresh this training data to reflect more current prices.
+
+- Because I was tuning this through my personal laptop computer, prolonged hyperparamter tuning was difficult. To improve this model, I would rent virtual machine space to get a more convenient long-term hyperparater tuning.
+
+- Enriching this data with population growth metrics relative to the area in which the Bulldozer was sold my expose new patterns in sales prices
+
+## Acknowledgements
+
+I would like to give a very special thanks to the Springboard Data Science Career Track program, including my incredible mentor Malik, Michelle Jorgensen, and Vinju Vipin.
